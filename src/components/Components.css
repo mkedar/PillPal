@@ -74,23 +74,33 @@
     display: inline-block;
     z-index: 6;
   }
-
   .nav {
-    display: none;
-    flex-direction: column;
+    display: flex;
+    flex-direction: column; /* Adjust to a column layout */
     position: absolute;
     top: 60px;
     left: 0;
     background-color: #0074b3;
     width: 100%;
+    overflow: hidden;
+    max-height: 0; /* Initially hide the menu */
+    transition: max-height 0.3s ease; /* Add a transition for a smooth effect */
   }
 
   .nav.open {
-    display: flex;
+    max-height: 320px; /* Adjust the maximum height as needed */
   }
 
   .nav a {
     margin: 10px;
+    opacity: 0; /* Initially hide the links */
+    transform: translateY(-10px); /* Move the links up */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Add transitions */
+  }
+
+  .nav.open a {
+    opacity: 1; /* Show the links */
+    transform: translateY(0); /* Move the links down */
   }
 }
 

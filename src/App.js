@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import  Header from './components/Header';
+import Home from './pages/Home';
+import About from './pages/About';
+import SignIn from './pages/SignIn';
+import Profile from './pages/Profile';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-         pillPal
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

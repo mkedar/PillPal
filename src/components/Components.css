@@ -22,23 +22,77 @@
   }
 }
 
+/* Components.css */
+
+/* Components.css */
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger div {
+  background-color: #fff;
+  height: 5px;
+  margin: 6px 0;
+  width: 35px;
+  border-radius: 3px;
+}
+
+.hamburger.open div:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open div:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
 .nav {
   display: flex;
-  gap: 20px; /* Add some spacing between links */
 }
 
 .nav a {
   text-decoration: none;
   color: #fff;
   font-size: 18px;
-  transition:  all 0.1s ; /* Add a smooth transition for the effect */
+  margin-left: 20px;
+  transition: all 0.1s;
 
-  /* Add hover styles */
   &:hover {
     text-decoration: underline;
     font-weight: bold;
   }
 }
+
+@media (max-width: 767px) {
+  .hamburger {
+    display: inline-block;
+    z-index: 6;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #0074b3;
+    width: 100%;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav a {
+    margin: 10px;
+  }
+}
+
 
 .footer {
   background-color: #f8f8f8;

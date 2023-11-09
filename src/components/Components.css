@@ -37,10 +37,11 @@
   margin: 6px 0;
   width: 35px;
   border-radius: 3px;
+  transition: all 0.3s ease; /* Add transition property */
 }
 
 .hamburger.open div:nth-child(1) {
-  transform: rotate(-45deg) translate(-5px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
 }
 
 .hamburger.open div:nth-child(2) {
@@ -48,7 +49,7 @@
 }
 
 .hamburger.open div:nth-child(3) {
-  transform: rotate(45deg) translate(-5px, -6px);
+  transform: rotate(45deg) translate(-9px, -6px);
 }
 
 .nav {

@@ -16,6 +16,10 @@
   font-weight: bold;
   text-decoration: none;
   color: #fff;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .nav {
@@ -25,8 +29,15 @@
 
 .nav a {
   text-decoration: none;
-  color: #fff; /* Set the color to white */
+  color: #fff;
   font-size: 18px;
+  transition:  all 0.1s ; /* Add a smooth transition for the effect */
+
+  /* Add hover styles */
+  &:hover {
+    text-decoration: underline;
+    font-weight: bold;
+  }
 }
 
 .footer {

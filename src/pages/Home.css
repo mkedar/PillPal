@@ -1,0 +1,29 @@
+/* Home.css */
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.titlePillPalBox {
+  background-color: #fff; /* Blue color */
+  margin-left: 20px;
+  text-align: center;
+}
+
+.titlePillPalText {
+  color: #304C89;
+  text-align: left; /* Align text to the right */
+}
+
+.explanationBox {
+  background-color: #f8f8f8; /* Off-white color */
+  padding: 20px;
+  text-align: center;
+  max-width: 600px; /* Set a maximum width for the box */
+  border-radius: 8px;
+}
+
+.explanationText {
+  color: #333; /* Dark color for text */
+}

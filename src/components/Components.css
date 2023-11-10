@@ -3,7 +3,7 @@
 /* Components.css */
 
 .header {
-  background-color: #0074b3;
+  background-color: #304C89;
   color: #fff;
   padding: 10px 20px;
   display: flex;
@@ -80,7 +80,7 @@
     position: absolute;
     top: 60px;
     left: 0;
-    background-color: #0074b3;
+    background-color: #304C89;
     width: 100%;
     overflow: hidden;
     max-height: 0; /* Initially hide the menu */
@@ -88,7 +88,7 @@
   }
 
   .nav.open {
-    max-height: 320px; /* Adjust the maximum height as needed */
+    max-height: 330px; /* Adjust the maximum height as needed */
   }
 
   .nav a {

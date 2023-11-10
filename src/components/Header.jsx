@@ -32,7 +32,7 @@ export default function Header() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [isMenuOpen]);
+  });
 
   return (
     <div className="header">

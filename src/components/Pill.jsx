@@ -1,88 +1,62 @@
 import React, { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import * as THREE from 'three';
 
 const Pill = () => {
-  const location = useLocation();
-  const pillContainerRef = useRef();
-  let scene, camera, renderer, pillMesh, animateId;
+  const mount = useRef(null);
+  const isMounted = useRef(true); // Keep track of whether the component is mounted
 
   useEffect(() => {
-    const cleanUp = () => {
-      // Stop the animation loop
-      cancelAnimationFrame(animateId);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
 
-      // Dispose of the renderer
-      if (renderer) {
-        renderer.dispose();
-        // eslint-disable-next-line
-        renderer = null;
-      }
+    // Set up the scene
+    camera.position.set(0, 0, 5);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    mount.current.appendChild(renderer.domElement);
 
-      // Remove the pillMesh from the scene and clear its geometry and material
-      if (scene && pillMesh) {
-        scene.remove(pillMesh);
-        pillMesh.geometry.dispose();
-        pillMesh.material.dispose();
-        // eslint-disable-next-line
-        pillMesh = null;
-      }
+    // Create a simple pill geometry
+    const pillGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
+    const pillMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const pill = new THREE.Mesh(pillGeometry, pillMaterial);
 
-      // Clear the scene
-      // eslint-disable-next-line
-      scene = null;
+    // Center the pill in the scene
+    pill.position.set(0, 0, 0);
+    scene.add(pill);
 
-      // Set the camera to null
-      // eslint-disable-next-line
-      camera = null;
+    // Handle window resize
+    const handleResize = () => {
+      const { innerWidth, innerHeight } = window;
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
     };
 
-    // Check if the current location is the "pill" page
-    if (location.pathname === '/PillPage') {
-      // Clean up existing scene before creating a new one
-      cleanUp();
+    // Listen for window resize events
+    window.addEventListener('resize', handleResize);
 
-      // Initialize Three.js components
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000);
-      renderer = new THREE.WebGLRenderer({ alpha: false }); //set to true to make background transparent
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    // Animation logic
+    const animate = () => {
+      requestAnimationFrame(animate);
+      // Add any animation logic here if needed
+      renderer.render(scene, camera);
+    };
 
-      // Append the renderer's DOM element to the container
-      pillContainerRef.current.appendChild(renderer.domElement);
+    animate();
 
-      // Use a capsule geometry to create a pill shape
-      const geometry = new THREE.CapsuleGeometry(0.3, 0.8, 20, 20);
-      const material = new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 0.7 });
-      pillMesh = new THREE.Mesh(geometry, material);
-      scene.add(pillMesh);
-
-      // Position the pill at the center and higher up
-      pillMesh.position.y = 10;
-      pillMesh.position.x = 0;
-      pillMesh.position.z = 0;
-
-      // Adjust the camera position
-      camera.position.set(0, 5, 10);
-
-      function animate() {
-        // eslint-disable-next-line
-        animateId = requestAnimationFrame(animate);
-        pillMesh.rotation.x += 0.01;
-        pillMesh.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      }
-
-      animate();
-    }
-
-    // Clean up Three.js resources when leaving the "pill" page or when the component unmounts
+    // Cleanup on component unmount
     return () => {
-      cleanUp();
+      // Check if the component is still mounted before removing the renderer's DOM element
+      if (isMounted.current) {
+        window.removeEventListener('resize', handleResize);
+        mount.current.removeChild(renderer.domElement);
+      }
+      // Update the isMounted flag to false when unmounting
+      isMounted.current = false;
     };
-  }, [location.pathname]);
+  }, []);
 
-  return <div id="pill-container" ref={pillContainerRef}></div>;
+  return <div ref={mount} />;
 };
 
 export default Pill;

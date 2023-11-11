@@ -3,7 +3,7 @@ import Pill from '../components/Pill'
 
 export default function PillPage() {
   return (
-    <div>
+    <div className='pillBox'>
       <Pill />
     </div>
   )

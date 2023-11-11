@@ -7,8 +7,10 @@ const Pill = () => {
 
   useEffect(() => {
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); //honestly not that sure what this does
+    let renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ alpha: true }); //set to true to make background transparent
+
 
     // Set up the scene
     camera.position.set(0, 0, 5);
@@ -16,12 +18,12 @@ const Pill = () => {
     mount.current.appendChild(renderer.domElement);
 
     // Create a simple pill geometry
-    const pillGeometry = new THREE.CylinderGeometry(1, 1, 2, 32);
-    const pillMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const pillGeometry = new THREE.CapsuleGeometry(0.3, 0.8, 20, 20); // {radius, height, polygon side, pilygon top circle}
+    const pillMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 1 });
     const pill = new THREE.Mesh(pillGeometry, pillMaterial);
 
     // Center the pill in the scene
-    pill.position.set(0, 0, 0);
+    pill.position.set(0, 0, 0); //moves the pill around the scene {x,y,z}
     scene.add(pill);
 
     // Handle window resize
@@ -38,7 +40,9 @@ const Pill = () => {
     // Animation logic
     const animate = () => {
       requestAnimationFrame(animate);
-      // Add any animation logic here if needed
+        pill.rotation.x += 0.01; // spin forward + or backwards -
+        pill.rotation.y += 0.01; // honestly not sure, only takes affect when z is affected
+        pill.rotation.z +=0.01; //makes it spin diagonally like a clock +
       renderer.render(scene, camera);
     };
 
@@ -49,6 +53,7 @@ const Pill = () => {
       // Check if the component is still mounted before removing the renderer's DOM element
       if (isMounted.current) {
         window.removeEventListener('resize', handleResize);
+        // eslint-disable-next-line
         mount.current.removeChild(renderer.domElement);
       }
       // Update the isMounted flag to false when unmounting

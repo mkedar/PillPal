@@ -109,8 +109,6 @@
   background-color: #f8f8f8;
   padding: 20px;
   text-align: center;
-  position: fixed;
-  bottom: 0;
   width: 100%;
 }
 
@@ -149,7 +147,6 @@
 
 .social-icons a {
   margin-right: 15px;
-  
   color: #333;
   font-size: 20px;
   text-decoration: none;

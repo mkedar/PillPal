@@ -1,7 +1,10 @@
 import React from 'react'
+import Pill from '../components/Pill'
 
 export default function PillPage() {
   return (
-    <div>PillPage</div>
+    <div>
+      <Pill />
+    </div>
   )
 }

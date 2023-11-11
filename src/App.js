@@ -9,22 +9,25 @@ import Profile from './pages/Profile';
 import Footer from './components/Footer';
 import PillPage from './pages/PillPage';
 
+
+
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/PillPage" element={<PillPage />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
+      <BrowserRouter>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/PillPage" element={<PillPage />} />
+          </Routes>
+          <Footer />
+        </div>
+      </BrowserRouter>
   );
 }
+
 
 export default App;

@@ -1,9 +1,10 @@
 // Header.jsx
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import HamburgerMenu from './HamburgerMenu';
 import './Components.css';
+
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,6 +17,10 @@ export default function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+
+  // Define styles for the space around the iPhone camera
+
 
   useEffect(() => {
     closeMenu(); // Close the menu when the location changes
@@ -37,9 +42,7 @@ export default function Header() {
   return (
     <div className="header">
       <Link to="/" className="logo">PillPal</Link>
-
       <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} onLinkClick={closeMenu} />
-
       <div className={`nav ${isMenuOpen ? 'open' : ''}`}>
         <Link to="/" onClick={closeMenu}>Home</Link>
         <Link to="/about" onClick={closeMenu}>About</Link>

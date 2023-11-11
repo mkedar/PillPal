@@ -15,6 +15,7 @@ const Pill = () => {
       // Dispose of the renderer
       if (renderer) {
         renderer.dispose();
+        // eslint-disable-next-line
         renderer = null;
       }
 
@@ -23,13 +24,16 @@ const Pill = () => {
         scene.remove(pillMesh);
         pillMesh.geometry.dispose();
         pillMesh.material.dispose();
+        // eslint-disable-next-line
         pillMesh = null;
       }
 
       // Clear the scene
+      // eslint-disable-next-line
       scene = null;
 
       // Set the camera to null
+      // eslint-disable-next-line
       camera = null;
     };
 
@@ -41,7 +45,7 @@ const Pill = () => {
       // Initialize Three.js components
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000);
-      renderer = new THREE.WebGLRenderer({ alpha: false });
+      renderer = new THREE.WebGLRenderer({ alpha: false }); //set to true to make background transparent
       renderer.setSize(window.innerWidth, window.innerHeight);
 
       // Append the renderer's DOM element to the container
@@ -62,6 +66,7 @@ const Pill = () => {
       camera.position.set(0, 5, 10);
 
       function animate() {
+        // eslint-disable-next-line
         animateId = requestAnimationFrame(animate);
         pillMesh.rotation.x += 0.01;
         pillMesh.rotation.y += 0.01;

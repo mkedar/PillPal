@@ -69,6 +69,7 @@ const Pill = () => {
 
         pill.current.rotation.x = targetRotationY * 0.005;
         pill.current.rotation.y = targetRotationX * 0.005;
+        pill.current.rotation.z = targetRotationX * 0.008;
       }
 
       renderer.render(scene, camera.current);

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import Hammer from 'hammerjs';
 
-const Pill = () => {
+const Pill = (color1, color2, length, radius) => {
   const mount = useRef(null);
   const isMounted = useRef(true);
   const pill = useRef(null);
@@ -52,20 +52,21 @@ const Pill = () => {
     // Touch interaction
     pill.current.rotation.z = 0.50;
     const hammer = new Hammer(mount.current);
-    let previousX = 0;
 
     hammer.on('pan', (event) => {
-      // Use the pan event for touch-based interaction
       const deltaX = event.deltaX;
-      //const deltaY = event.deltaY;
-
-      // Adjust the sensitivity based on your preference
       const sensitivity = 0.0005;
-
-      //pill.current.rotation.x += deltaY * sensitivity;
       pill.current.rotation.y += deltaX * sensitivity;
     });
 
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const sensitivity = 0.02;
+      pill.current.rotation.y = scrollY * sensitivity;
+    };
+
+    // Listen for scroll events
+    window.addEventListener('scroll', handleScroll);
     // Animation logic
     const animate = () => {
       requestAnimationFrame(animate);
@@ -81,6 +82,9 @@ const Pill = () => {
     return () => {
       if (isMounted.current) {
         window.removeEventListener('resize', handleResize);
+        window.removeEventListener('scroll', handleScroll);
+
+        // eslint-disable-next-line
         mount.current.removeChild(renderer.domElement);
       }
       isMounted.current = false;

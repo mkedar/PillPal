@@ -10,6 +10,14 @@ const Pill = () => {
 
   useEffect(() => {
     const scene = new THREE.Scene();
+
+    const ambientLight = new THREE.AmbientLight(0xfffff);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+    directionalLight.position.set(5, 5, 5);
+    scene.add(directionalLight);
+
     camera.current = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     let renderer = new THREE.WebGLRenderer();
     renderer = new THREE.WebGLRenderer({ alpha: false });
@@ -23,7 +31,7 @@ const Pill = () => {
 
     // Create a simple pill geometry
     const pillGeometry = new THREE.CapsuleGeometry(0.9, pillHeight, 20, 20);
-    const pillMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 1 });
+    const pillMaterial = new THREE.MeshPhongMaterial({ color: 0x0000ff, transparent: true, opacity: 1 });
     pill.current = new THREE.Mesh(pillGeometry, pillMaterial);
 
     // Center the pill in the scene
@@ -41,38 +49,30 @@ const Pill = () => {
     // Listen for window resize events
     window.addEventListener('resize', handleResize);
 
-    // Swipe interaction
+    // Touch interaction
+    pill.current.rotation.z = 0.50;
+    const hammer = new Hammer(mount.current);
     let previousX = 0;
 
-    // Mouse swipe interaction
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetRotationX = 0;
-    let targetRotationY = 0;
-    const windowHalfX = window.innerWidth / 2;
-    const windowHalfY = window.innerHeight / 2;
+    hammer.on('pan', (event) => {
+      // Use the pan event for touch-based interaction
+      const deltaX = event.deltaX;
+      //const deltaY = event.deltaY;
 
-    const onMouseMove = (event) => {
-      mouseX = (event.clientX - windowHalfX) / 2;
-      mouseY = (event.clientY - windowHalfY) / 2;
-    };
+      // Adjust the sensitivity based on your preference
+      const sensitivity = 0.0005;
 
-    document.addEventListener('mousemove', onMouseMove);
+      //pill.current.rotation.x += deltaY * sensitivity;
+      pill.current.rotation.y += deltaX * sensitivity;
+    });
 
     // Animation logic
     const animate = () => {
       requestAnimationFrame(animate);
 
-      if (pill.current) { // Check if pill is defined
-        targetRotationX += 0.05 * (mouseX - targetRotationX);
-        targetRotationY += 0.05 * (mouseY - targetRotationY);
-
-        pill.current.rotation.x = targetRotationY * 0.005;
-        pill.current.rotation.y = targetRotationX * 0.005;
-        pill.current.rotation.z = targetRotationX * 0.008;
+      if (pill.current) {
+        renderer.render(scene, camera.current);
       }
-
-      renderer.render(scene, camera.current);
     };
 
     animate();
@@ -81,7 +81,6 @@ const Pill = () => {
     return () => {
       if (isMounted.current) {
         window.removeEventListener('resize', handleResize);
-        document.removeEventListener('mousemove', onMouseMove);
         mount.current.removeChild(renderer.domElement);
       }
       isMounted.current = false;

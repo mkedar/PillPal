@@ -1,5 +1,6 @@
 import React from 'react';
 import Pill from '../components/Pill';
+import PillGen from '../generation/PillGen'
 import './pillpage.css';
 
 export default function PillPage() {
@@ -9,7 +10,7 @@ export default function PillPage() {
         <h3>[Medication Name]</h3>
       </div>
       <div className='pillBox'>
-        <Pill />
+        <PillGen />
       </div>
       <div>
         <p>Hello</p>

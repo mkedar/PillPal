@@ -31,7 +31,7 @@ const Pill = ({ color1, color2, length, radius }) => {
     const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.5 });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.rotation.x = -Math.PI / 2;
-    ground.position.y = -0.6;
+    ground.position.y = -0.5;
     ground.receiveShadow = true;
     scene.add(ground);
 
@@ -73,7 +73,7 @@ const Pill = ({ color1, color2, length, radius }) => {
     pill.current.castShadow = true;
     pill.current.receiveShadow = true;
 
-    pill.current.position.set(0, pillHeight, 0);
+    pill.current.position.set(0, pillHeight*1.3, 0);
     // Rotate the pill at an angle
     pill.current.rotation.set(0, 0, Math.PI / 4);
     scene.add(pill.current);
@@ -87,10 +87,20 @@ const Pill = ({ color1, color2, length, radius }) => {
 
     window.addEventListener('resize', handleResize);
 
+    const maxRotationalVelocity = 0.07; // Set your desired maximum rotational velocity
+
     const handlePan = (event) => {
       const deltaX = event.deltaX;
-      const sensitivity = 0.0005;
+      console.log(deltaX);
+      const sensitivity = 0.001;
       rotationalVelocity.current = deltaX * sensitivity;
+
+      // Limit the rotational velocity to the maximum value
+      if (rotationalVelocity.current > maxRotationalVelocity) {
+        rotationalVelocity.current = maxRotationalVelocity;
+      } else if (rotationalVelocity.current < -maxRotationalVelocity) {
+        rotationalVelocity.current = -maxRotationalVelocity;
+      }
     };
 
     const handleScroll = () => {

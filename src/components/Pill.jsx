@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import Hammer from 'hammerjs';
 
-const Pill = ({color1, color2, length, radius}) => {
+const Pill = ({ color1, color2, length, radius }) => {
   const mount = useRef(null);
   const isMounted = useRef(true);
   const pill = useRef(null);
   const camera = useRef(null);
+  const initialRotation = useRef(0);
 
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -20,7 +21,7 @@ const Pill = ({color1, color2, length, radius}) => {
 
     camera.current = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     let renderer = new THREE.WebGLRenderer();
-    renderer = new THREE.WebGLRenderer({ alpha: false });
+    renderer = new THREE.WebGLRenderer({ alpha: true });
 
     const pillHeight = 1.8;
 
@@ -31,7 +32,33 @@ const Pill = ({color1, color2, length, radius}) => {
 
     // Create a simple pill geometry
     const pillGeometry = new THREE.CapsuleGeometry(radius, length, 20, 20);
-    const pillMaterial = new THREE.MeshPhongMaterial({ color: color1, transparent: true, opacity: 1 });
+
+    // Create a custom material with gradient colors
+    const pillMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        color1: { value: new THREE.Color(color1) },
+        color2: { value: new THREE.Color(color2) },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color1;
+        uniform vec3 color2;
+        varying vec2 vUv;
+        void main() {
+          gl_FragColor = vec4(mix(color1, color2, step(0.5, vUv.y)), 1.0);
+        }
+      `,
+    });
+    
+    
+    
+
     pill.current = new THREE.Mesh(pillGeometry, pillMaterial);
 
     // Center the pill in the scene
@@ -62,11 +89,15 @@ const Pill = ({color1, color2, length, radius}) => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const sensitivity = 0.02;
-      pill.current.rotation.y = scrollY * sensitivity;
+      pill.current.rotation.y = initialRotation.current + scrollY * sensitivity;
     };
+
+    // Set the initial rotation value
+    initialRotation.current = pill.current.rotation.y;
 
     // Listen for scroll events
     window.addEventListener('scroll', handleScroll);
+
     // Animation logic
     const animate = () => {
       requestAnimationFrame(animate);
@@ -89,7 +120,7 @@ const Pill = ({color1, color2, length, radius}) => {
       }
       isMounted.current = false;
     };
-  }, [color1, length, radius]);
+  }, [color1, color2, length, radius]);
 
   return <div ref={mount} />;
 };

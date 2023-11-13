@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import Hammer from 'hammerjs';
 
-const Pill = (color1, color2, length, radius) => {
+const Pill = ({color1, color2, length, radius}) => {
   const mount = useRef(null);
   const isMounted = useRef(true);
   const pill = useRef(null);
@@ -11,7 +11,7 @@ const Pill = (color1, color2, length, radius) => {
   useEffect(() => {
     const scene = new THREE.Scene();
 
-    const ambientLight = new THREE.AmbientLight(0xfffff);
+    const ambientLight = new THREE.AmbientLight("#B5AFAD");
     scene.add(ambientLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
@@ -30,8 +30,8 @@ const Pill = (color1, color2, length, radius) => {
     mount.current.appendChild(renderer.domElement);
 
     // Create a simple pill geometry
-    const pillGeometry = new THREE.CapsuleGeometry(0.9, pillHeight, 20, 20);
-    const pillMaterial = new THREE.MeshPhongMaterial({ color: 0x0000ff, transparent: true, opacity: 1 });
+    const pillGeometry = new THREE.CapsuleGeometry(radius, length, 20, 20);
+    const pillMaterial = new THREE.MeshPhongMaterial({ color: color1, transparent: true, opacity: 1 });
     pill.current = new THREE.Mesh(pillGeometry, pillMaterial);
 
     // Center the pill in the scene
@@ -89,7 +89,7 @@ const Pill = (color1, color2, length, radius) => {
       }
       isMounted.current = false;
     };
-  }, []);
+  }, [color1, length, radius]);
 
   return <div ref={mount} />;
 };

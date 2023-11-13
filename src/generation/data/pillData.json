@@ -1,6 +1,7 @@
 {
-  "color1": "0xff0000",
-  "color2": "0x00ff00",
+  "name": "SamplePill",
+  "color1": "blue",
+  "color2": "red",
   "length": 2.5,
   "radius": 0.7
 }

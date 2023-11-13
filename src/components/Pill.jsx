@@ -94,12 +94,7 @@ const Pill = ({ color1, color2, length, radius }) => {
     };
 
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const sensitivity = 0.02;
-      const targetRotation = initialRotation.current + scrollY * sensitivity;
-      const deltaRotation = targetRotation - pill.current.rotation.y;
-
-      pill.current.rotation.y += deltaRotation * 0.1;
+        pill.current.rotation.y += 0.1;
     };
 
     const animate = () => {

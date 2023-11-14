@@ -7,6 +7,7 @@ const Pill = ({ color1, color2, length, radius }) => {
   const isMounted = useRef(true);
   const pill = useRef(null);
   const camera = useRef(null);
+  const lastMousePosition = useRef({ x: 0, time: 0 });
   const initialRotation = useRef(0);
   const decayFactor = 0.95;
   const rotationalVelocity = useRef(0);
@@ -87,13 +88,15 @@ const Pill = ({ color1, color2, length, radius }) => {
 
     window.addEventListener('resize', handleResize);
 
-    const maxRotationalVelocity = 0.07; // Set your desired maximum rotational velocity
+    const maxRotationalVelocity = 0.2;
 
     const handlePan = (event) => {
-      const deltaX = event.deltaX;
-      console.log(deltaX);
-      const sensitivity = 0.001;
-      rotationalVelocity.current = deltaX * sensitivity;
+      const currentTime = performance.now();
+      const deltaTime = currentTime - lastMousePosition.current.time;
+      const velocity = (event.velocityX || event.velocity) * 0.03; // Adjust sensitivity as needed
+      lastMousePosition.current = { x: event.center.x, time: currentTime };
+
+      rotationalVelocity.current = velocity;
 
       // Limit the rotational velocity to the maximum value
       if (rotationalVelocity.current > maxRotationalVelocity) {
@@ -104,7 +107,7 @@ const Pill = ({ color1, color2, length, radius }) => {
     };
 
     const handleScroll = () => {
-        pill.current.rotation.y += 0.1;
+      pill.current.rotation.y += 0.1;
     };
 
     const animate = () => {

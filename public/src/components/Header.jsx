@@ -41,7 +41,7 @@ export default function Header() {
 
   return (
     <div className="header">
-      <Link to="/" className="logo">PillPal</Link>
+      <Link to="/" className="logo">Capsula</Link>
       <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} onLinkClick={closeMenu} />
       <div className={`nav ${isMenuOpen ? 'open' : ''}`}>
         <Link to="/" onClick={closeMenu}>Home</Link>

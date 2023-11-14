@@ -8,7 +8,6 @@ const Pill = ({ color1, color2, length, radius }) => {
   const pill = useRef(null);
   const camera = useRef(null);
   const lastMousePosition = useRef({ x: 0, time: 0 });
-  const initialRotation = useRef(0);
   const decayFactor = 0.95;
   const rotationalVelocity = useRef(0);
 
@@ -92,7 +91,6 @@ const Pill = ({ color1, color2, length, radius }) => {
 
     const handlePan = (event) => {
       const currentTime = performance.now();
-      const deltaTime = currentTime - lastMousePosition.current.time;
       const velocity = (event.velocityX || event.velocity) * 0.03; // Adjust sensitivity as needed
       lastMousePosition.current = { x: event.center.x, time: currentTime };
 
@@ -132,6 +130,7 @@ const Pill = ({ color1, color2, length, radius }) => {
       if (isMounted.current) {
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('scroll', handleScroll);
+        // eslint-disable-next-line 
         mount.current.removeChild(renderer.domElement);
       }
       isMounted.current = false;

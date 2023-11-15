@@ -1,0 +1,71 @@
+/* SignUp.css */
+
+/* SignUp container */
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: 30px; /* Adjust the negative margin to move the content up */
+}
+
+/* SignUp form */
+.signUpTitle{
+  font-size: 40px;
+}
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  margin: 20px;
+}
+
+/* Input styles */
+.input-field {
+  margin: 15px; /* Increase the margin to add more space between input fields */
+  padding: 15px; /* Increase the padding for larger input fields */
+  padding-left: 13px;
+  width: 400px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 6px; /* Increase the border-radius for slightly rounded corners */
+  font-size: 18px; /* Increase the font size for larger text */
+}
+
+/* Button styles */
+.signup-button {
+  margin-top: 20px;
+  padding: 12px; /* Increase the padding for a larger button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 200px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+/* Sign In link container */
+.signin-link-container {
+  margin-top: 15px; /* Increase the margin to add more space between the link and the form */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Sign In link styles */
+.signin-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px; /* Increase the font size for the link */
+}
+
+.signin-link:hover {
+  text-decoration: underline;
+}

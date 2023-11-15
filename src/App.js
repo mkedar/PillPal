@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn.jsx';
 import Profile from './pages/Profile.jsx';
 import Footer from './components/Footer.jsx';
 import PillPage from './pages/PillPage.jsx';
+import SignUp from './pages/SignUp.jsx';
 
 
 
@@ -16,13 +17,16 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Header />
-          <Routes>
-            <Route path="/about" element={<About />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/PillPage" element={<PillPage />} />
-          </Routes>
+          <div className='content'>
+            <Routes>
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/PillPage" element={<PillPage />} />
+            </Routes>
+          </div>
           <Footer />
         </div>
       </BrowserRouter>

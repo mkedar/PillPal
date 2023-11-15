@@ -2,7 +2,6 @@
 .home {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 .titlePillPalBox {
@@ -22,6 +21,7 @@
   text-align: center;
   max-width: 600px; /* Set a maximum width for the box */
   border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .explanationText {

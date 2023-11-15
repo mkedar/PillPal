@@ -31,6 +31,7 @@
     "react-router-dom": "^6.18.0",
     "react-scripts": "^5.0.1",
     "react-swipeable": "^7.0.1",
+    "redux-persist": "^6.0.0",
     "swipeable": "^1.0.5",
     "three": "^0.158.0",
     "three-orbitcontrols": "^2.110.3",

@@ -27,7 +27,6 @@
   padding: 15px; /* Increase the padding for larger input fields */
   padding-left: 13px;
   width: 100%;
-  box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 6px; /* Increase the border-radius for slightly rounded corners */
   font-size: 18px; /* Increase the font size for larger text */
@@ -36,12 +35,14 @@
 /* Button styles */
 .signup-button {
   margin-top: 20px;
-  padding: 12px; /* Increase the padding for a larger button */
+  padding: 15px;
+  padding-right: 50px;
+  padding-left: 50px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 6px;
-  width: 200px;
+  /*width: 200px;*/
   cursor: pointer;
   font-size: 18px;
 }
@@ -68,4 +69,23 @@
 
 .signin-link:hover {
   text-decoration: underline;
+}
+
+.signInWithGoogle{
+  margin-top: 20px;
+  display: inline-block;
+  background-color: rgb(198, 75, 75); /* Google Blue */
+  color: #ffffff; /* White text */
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 50px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  /* Optional: Add box shadow for a raised effect */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

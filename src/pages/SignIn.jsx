@@ -4,6 +4,7 @@ import { useState } from 'react';
 import './signUpIn.css'; // Import the CSS file
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess , signInFailure } from '../redux/user/userSlice.js';
+import OAuth from '../components/OAuth.jsx';
 
 
 export default function SignIn() {
@@ -51,6 +52,7 @@ export default function SignIn() {
         <input type="email" placeholder="Email" id="email" className="input-field" onChange={handleChange} ></input>
         <input type="password" placeholder="Password" id="password" className="input-field" onChange={handleChange} ></input>
         <button disabled={loading} className="signup-button">{ loading ? "Loading ..." : "Sign In"}</button>
+        <OAuth />
       </form>
       <div className="signin-link-container">
         <p>Dont have an account?</p>

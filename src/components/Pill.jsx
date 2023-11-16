@@ -126,15 +126,20 @@ const Pill = ({ color1, color2, length, radius }) => {
 
     window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      if (isMounted.current) {
-        window.removeEventListener('resize', handleResize);
-        window.removeEventListener('scroll', handleScroll);
-        // eslint-disable-next-line 
-        mount.current.removeChild(renderer.domElement);
-      }
-      isMounted.current = false;
-    };
+   // Cleanup on component unmount
+return () => {
+  if (isMounted.current) {
+    window.removeEventListener('resize', handleResize);
+    window.removeEventListener('scroll', handleScroll);
+
+    // Check if mount.current and renderer.domElement are not null before removing
+    if (mount.current && renderer.domElement) {
+      mount.current.removeChild(renderer.domElement);
+    }
+  }
+  isMounted.current = false;
+};
+
   }, [color1, color2, length, radius]);
 
   return <div ref={mount} />;

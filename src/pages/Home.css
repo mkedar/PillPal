@@ -8,11 +8,14 @@
   background-color: #fff; /* Blue color */
   margin-left: 20px;
   text-align: center;
+  font-size: 50px;
+  font-weight: bold;
 }
 
 .titlePillPalText {
   color: #304C89;
-  text-align: left; /* Align text to the right */
+  text-align: left; 
+  /* Align text to the right */
 }
 
 .explanationBox {

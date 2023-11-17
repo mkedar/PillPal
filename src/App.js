@@ -9,8 +9,7 @@ import Profile from './pages/Profile.jsx';
 import Footer from './components/Footer.jsx';
 import PillPage from './pages/PillPage.jsx';
 import SignUp from './pages/SignUp.jsx';
-
-
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 function App() {
   return (
@@ -22,9 +21,11 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/about" element={<About />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/profile" element={<Profile />} />
               <Route path="/" element={<Home />} />
               <Route path="/PillPage" element={<PillPage />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/profile' element={<Profile />} />
+              </Route>
             </Routes>
           </div>
           <Footer />

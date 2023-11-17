@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import HamburgerMenu from './HamburgerMenu';
 import './Components.css';
+import { useSelector } from 'react-redux';
 
 
 
 export default function Header() {
+  const {currentUser} = useSelector(state=> state.user) 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -46,8 +48,16 @@ export default function Header() {
       <div className={`nav ${isMenuOpen ? 'open' : ''}`}>
         <Link to="/" onClick={closeMenu}>Home</Link>
         <Link to="/about" onClick={closeMenu}>About</Link>
-        <Link to="/signin" onClick={closeMenu}>Sign In</Link>
-        <Link to="/profile" onClick={closeMenu}>Profile</Link>
+        
+        <Link to="/profile" onClick={closeMenu}>
+          {currentUser ? (
+            <div>
+              <img className= 'profileImage' src={currentUser.avatar} alt='profile'/>
+            </div>
+          ) : (
+            <li>Sign In</li>
+          )}
+        </Link>
       </div>
     </div>
   );

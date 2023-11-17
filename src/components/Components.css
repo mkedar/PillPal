@@ -21,10 +21,24 @@
     text-decoration: underline;
   }
 }
-
 /* Components.css */
 
-/* Components.css */
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.profile-container {
+  margin-left: 20px; /* Adjust the margin as needed */
+}
+
+
+.profileImage {
+  width: 40px;
+  height: 40px; /* Set a fixed height to maintain the aspect ratio */
+  border-radius: 50%; /* Make the image circular by setting border-radius to 50% */
+  object-fit: cover; /* Maintain the aspect ratio while covering the content box */
+}
 
 .hamburger {
   display: none;
@@ -54,8 +68,12 @@
 
 .nav {
   display: flex;
+  justify-content: space-between;
+  align-items: left;
 }
-
+.nav li {
+  list-style-type: none;
+}
 .nav a {
   text-decoration: none;
   color: #fff;

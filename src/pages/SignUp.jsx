@@ -59,7 +59,7 @@ export default function SignUp() {
         <p>Already have an account?</p>
         <Link to="/signin" className="signin-link">Sign In</Link>
       </div>
-      {error && <p>{error}</p>}
+      {error && <p className='error'>{error}</p>}
     </div>
   );
 }

@@ -89,3 +89,10 @@
   /* Optional: Add box shadow for a raised effect */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.error{
+  color:red;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  
+}

@@ -1,14 +1,10 @@
-/* App.css */
-/* App.css */
-/* Components.css */
 
 .header {
   background-color: #304C89;
   color: #fff;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Center items vertically */
 }
 
 .logo {
@@ -16,29 +12,46 @@
   font-weight: bold;
   text-decoration: none;
   color: #fff;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-/* Components.css */
-
-.header-right {
-  display: flex;
-  align-items: center;
+  margin-right: auto;
+  
 }
 
 .profile-container {
-  margin-left: 20px; /* Adjust the margin as needed */
+  display: flex; /* Make the container a flex container */
+  align-items: center; /* Center items vertically */
 }
-
 
 .profileImage {
   width: 40px;
-  height: 40px; /* Set a fixed height to maintain the aspect ratio */
-  border-radius: 50%; /* Make the image circular by setting border-radius to 50% */
-  object-fit: cover; /* Maintain the aspect ratio while covering the content box */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px; /* Adjust the margin as needed */
 }
+
+.nav {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  
+}
+
+.nav li {
+  list-style-type: none;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  margin-left: 20px;
+  transition: all 0.1s;
+  
+  &:hover {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
+
 
 .hamburger {
   display: none;
@@ -66,29 +79,6 @@
   transform: rotate(45deg) translate(-6px, -6px);
 }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: left;
-}
-.nav li {
-  list-style-type: none;
-}
-.nav a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 18px;
-  margin-left: 20px;
-  transition: all 0.1s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &:hover {
-    text-decoration: underline;
-    font-weight: bold;
-  }
-}
 
 @media (max-width: 767px) {
   .hamburger {
@@ -100,6 +90,7 @@
     flex-direction: column; /* Adjust to a column layout */
     position: absolute;
     top: 50px;
+    align-items: flex-start;
     left: 0;
     background-color: #304C89;
     width: 100%;

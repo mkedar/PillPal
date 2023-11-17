@@ -5,6 +5,8 @@ import HamburgerMenu from './HamburgerMenu';
 import './Components.css';
 import { useSelector } from 'react-redux';
 
+// ... (previous imports)
+
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +42,9 @@ export default function Header() {
       <Link to="/" className="logo">
         Capsula
       </Link>
+
       <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} onLinkClick={closeMenu} currentUser={currentUser} />
+
       <div className={`nav ${isMenuOpen ? 'open' : ''}`}>
         <Link to="/" onClick={closeMenu}>
           Home
@@ -49,17 +53,25 @@ export default function Header() {
           About
         </Link>
         {currentUser ? (
-          <Link to="/profile" onClick={closeMenu} className="profile-link">
-            <div>
-              <img className="profileImage" src={currentUser.avatar} alt="profile" />
-            </div>
-          </Link>
+            <Link to="/profile" onClick={closeMenu}>
+              My profile
+            </Link>
         ) : (
+          // If user is not logged in, show "Sign In" link in the hamburger menu
           <Link to="/signin" onClick={closeMenu}>
             Sign In
           </Link>
         )}
       </div>
+
+      {/* Additional content outside the hamburger menu (profile image) */}
+      {currentUser && (
+        <div className="profile-link outside-hamburger">
+          <Link to="/profile">
+            <img className="profileImage" src={currentUser.avatar} alt="profile" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

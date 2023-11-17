@@ -51,6 +51,7 @@ export default function SignIn() {
       <form onSubmit={handleSubmit} className="signup-form">
         <input type="email" placeholder="Email" id="email" className="input-field" onChange={handleChange} ></input>
         <input type="password" placeholder="Password" id="password" className="input-field" onChange={handleChange} ></input>
+        {error && <p className='error'>{error}</p>}
         <button disabled={loading} className="signup-button">{ loading ? "Loading ..." : "Sign In"}</button>
         <OAuth />
       </form>
@@ -58,7 +59,7 @@ export default function SignIn() {
         <p>Dont have an account?</p>
         <Link to="/signup" className="signin-link">Sign Up</Link>
       </div>
-      {error && <p>{error}</p>}
+      
     </div>
   );
 }

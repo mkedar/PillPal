@@ -13,7 +13,22 @@ export const signup = async (req, res, next) => {
     await newUser.save()
     res.status(201).json("user created succesfully");
   } catch(error){
-    next(error);
+      if (error.code === 11000) {
+        // Determine if the duplicate key is for the username, email, or both
+        if (error.keyPattern.username && error.keyPattern.email) {
+          // Both username and email are duplicate
+          next(errorHandler(409, "Email is already in use"));
+        } else if (error.keyPattern.username) {
+          // Only the username is duplicate
+          next(errorHandler(409, "Username is already taken"));
+        } else if (error.keyPattern.email) {
+          // Only the email is duplicate
+          next(errorHandler(409, "Email is already in use"));
+        }
+      } else {
+        // For other types of errors, pass them to the Express error-handling middleware
+        next(error);
+    }
   }
 }
 

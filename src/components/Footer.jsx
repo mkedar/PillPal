@@ -11,8 +11,6 @@ export default function Footer() {
         <div className="footer-links">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
-          <Link to="/signin">Sign In</Link>
-          <Link to="/profile">Profile</Link>
         </div>
         <div className="social-icons">
           <a href="https://github.com/mkedar/PillPal" target="_blank" rel="noopener noreferrer">

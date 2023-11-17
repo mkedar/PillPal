@@ -5,10 +5,8 @@ import HamburgerMenu from './HamburgerMenu';
 import './Components.css';
 import { useSelector } from 'react-redux';
 
-
-
 export default function Header() {
-  const {currentUser} = useSelector(state=> state.user) 
+  const { currentUser } = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -19,10 +17,6 @@ export default function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
-
-
-  // Define styles for the space around the iPhone camera
-
 
   useEffect(() => {
     closeMenu(); // Close the menu when the location changes
@@ -39,25 +33,32 @@ export default function Header() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  });
+  }, [isMenuOpen]);
 
   return (
     <div className="header">
-      <Link to="/" className="logo">Capsula</Link>
-      <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} onLinkClick={closeMenu} />
+      <Link to="/" className="logo">
+        Capsula
+      </Link>
+      <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} onLinkClick={closeMenu} currentUser={currentUser} />
       <div className={`nav ${isMenuOpen ? 'open' : ''}`}>
-        <Link to="/" onClick={closeMenu}>Home</Link>
-        <Link to="/about" onClick={closeMenu}>About</Link>
-        
-        <Link to="/profile" onClick={closeMenu}>
-          {currentUser ? (
-            <div>
-              <img className= 'profileImage' src={currentUser.avatar} alt='profile'/>
-            </div>
-          ) : (
-            <li>Sign In</li>
-          )}
+        <Link to="/" onClick={closeMenu}>
+          Home
         </Link>
+        <Link to="/about" onClick={closeMenu}>
+          About
+        </Link>
+        {currentUser ? (
+          <Link to="/profile" onClick={closeMenu} className="profile-link">
+            <div>
+              <img className="profileImage" src={currentUser.avatar} alt="profile" />
+            </div>
+          </Link>
+        ) : (
+          <Link to="/signin" onClick={closeMenu}>
+            Sign In
+          </Link>
+        )}
       </div>
     </div>
   );

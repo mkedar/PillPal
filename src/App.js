@@ -9,6 +9,7 @@ import Profile from './pages/Profile.jsx';
 import Footer from './components/Footer.jsx';
 import PillPage from './pages/PillPage.jsx';
 import SignUp from './pages/SignUp.jsx';
+import DoctorSignUp from './pages/DoctorSignUp.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/" element={<Home />} />
               <Route path="/PillPage" element={<PillPage />} />
+              <Route path="/signupDoctor" element={<DoctorSignUp />} />
               <Route element={<PrivateRoute />}>
                 <Route path='/profile' element={<Profile />} />
               </Route>

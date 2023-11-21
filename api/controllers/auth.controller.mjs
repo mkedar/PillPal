@@ -1,4 +1,6 @@
 import User from "../models/user.model.js";
+import Doctor from "../models/doctor.model.js";
+import Hospital from "../models/hospital.model.js";
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from "../utils/error.mjs";
 import jwt from 'jsonwebtoken';
@@ -33,9 +35,10 @@ export const signup = async (req, res, next) => {
 }
 
 export const signin = async (req, res, next) => {
+
   const {email, password} = req.body;
   try {
-    const validUser = await User.findOne({email});
+    const validUser = await User.findOne({email}) || await Doctor.findOne({email});
     if (!validUser) return next(errorHandler(404, 'This email is not associated with an account'));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if(!validPassword) return next(errorHandler(401, "Wrong credential"));
@@ -76,4 +79,39 @@ export const signOut = async (req, res, next) => {
     next(error);
   }
   
+}
+
+
+export const signupDoctor = async (req, res, next) => {
+  const {username, email, password, hospitalID } = req.body;
+  console.log('Received request body:', req.body);
+  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const newDoctor = new Doctor({ username, email, password: hashedPassword, hospitalID});
+  console.log('Received hospitalID:', hospitalID);
+  try{
+    const isValidHospital = await Hospital.findOne({ hospitalID });
+    console.log('isValidHospital:', isValidHospital.hospitalID);
+    if (!isValidHospital) {
+      return next(errorHandler(400, 'Invalid hospital ID'));
+    }
+    await newDoctor.save()
+    res.status(201).json("user created succesfully");
+  } catch(error){
+      if (error.code === 11000) {
+        // Determine if the duplicate key is for the username, email, or both
+        if (error.keyPattern.username && error.keyPattern.email) {
+          // Both username and email are duplicate
+          next(errorHandler(409, "Email is already in use"));
+        } else if (error.keyPattern.username) {
+          // Only the username is duplicate
+          next(errorHandler(409, "Username is already taken"));
+        } else if (error.keyPattern.email) {
+          // Only the email is duplicate
+          next(errorHandler(409, "Email is already in use"));
+        }
+      } else {
+        // For other types of errors, pass them to the Express error-handling middleware
+        next(error);
+    }
+  }
 }

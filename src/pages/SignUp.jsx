@@ -62,7 +62,7 @@ export default function SignUp() {
       <div className ='signin-doctor-container'>
         <hr />
         <p>Are you a medical professional ? Create your account here!</p>
-        <Link to='/signupDoctor' className='signin-link'>Sign Up as a Doctor</Link>
+        <Link to='/signupDoctor' className='signin-link'>Sign Up as a Medical Professional</Link>
       </div>
 
       {error && <p className='error'>{error}</p>}

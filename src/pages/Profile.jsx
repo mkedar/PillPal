@@ -46,7 +46,8 @@ export default function Profile() {
     e.preventDefault();
     try{
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const endpoint = currentUser.role === 'doctor' ? '/api/doctor/update' : '/api/user/update';
+      const res = await fetch(`${endpoint}/${currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,12 +67,12 @@ export default function Profile() {
   }
 
   const handleDeleteUser = async () => {
-    
     try{
       dispatch(deleteUserStart());
-      const res = await fetch (`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
-      });
+      const endpoint = currentUser.role === 'doctor' ? '/api/doctor/delete' : '/api/user/delete';
+      const res = await fetch(`${endpoint}/${currentUser._id}`, {
+      method: 'DELETE',
+    });
       const data = await res.json();
       if(data.success === false){
         dispatch(deleteUserFailure(data.message));

@@ -23,12 +23,15 @@ export default function SignUp() {
     e.preventDefault();
     try{
       setLoading(true);
+      const signUpData = {
+        ...formData,
+      }
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(signUpData),
       });
       const data = await res.json();
       if(data.success === false){
@@ -52,6 +55,7 @@ export default function SignUp() {
         <input type="text" placeholder="Username" id="username"  className="input-field" onChange={handleChange}></input>
         <input type="email" placeholder="Email" id="email" className="input-field" onChange={handleChange} ></input>
         <input type="password" placeholder="Password" id="password" className="input-field" onChange={handleChange} ></input>
+        {error && <p className='error'>{error}</p>}
         <button disabled={loading} className="signup-button">{ loading ? "Loading ..." : "Sign Up"}</button>
         <OAuth/>
       </form>
@@ -65,7 +69,7 @@ export default function SignUp() {
         <Link to='/signupDoctor' className='signin-link'>Sign Up as a Medical Professional</Link>
       </div>
 
-      {error && <p className='error'>{error}</p>}
+      
     </div>
   );
 }

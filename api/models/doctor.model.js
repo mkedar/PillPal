@@ -1,6 +1,10 @@
 import mongoose, { mongo } from "mongoose";
 
 const doctorSchema = new mongoose.Schema({
+  role: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
